@@ -4,8 +4,10 @@ from flask import Flask,render_template,url_for,request,flash,redirect,session
 from flask_sqlalchemy import SQLAlchemy
 import time
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+import imp
+
+imp.reload(sys)
+#sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 
@@ -158,7 +160,7 @@ def add_duty():
 		myname = session['username']
 		if request.method == "POST":
 			title = request.form['title']
-			print title
+			print (title)
 			category_id = request.form['name']
 			is_show = request.form['is_show']
 			status = request.form['status']
@@ -166,7 +168,7 @@ def add_duty():
 				data = Duty(category_id,session['user_id'],title,status,is_show,time.time())
 				res = db.session.add(data)
 				db.session.commit()
-				print data.duty_id
+				print (data.duty_id)
 				if data.duty_id:
 					flash('add successfully! ')
 					return redirect(url_for('my_duty'))
